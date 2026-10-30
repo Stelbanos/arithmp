@@ -1,6 +1,6 @@
 from arithmp.parser import Parser
 
 def test_add():
-    parse = Parser().parse
-    assert parse("1 + 1") == 2
-    assert parse("0 + 3") == 3
+    p = Parser().parse
+    assert p(None, "1 + 1 == 2")
+    assert p(None, "0 + 3 == 3")
