@@ -13,3 +13,20 @@ arithmp = "arithmp.__main__:main"
 [build-system]
 requires = ["uv_build>=0.12.5,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "poethepoet>=0.49.0",
+    "ruff>=0.17.3",
+    "ty>=0.0.95",
+]
+
+[tool.poe.tasks]
+format-imports = "ruff check --select I src tests --fix"
+format-ruff = "ruff format src tests"
+format.sequence = ["format-imports", "format-ruff"]
+lint-ruff = "ruff check src tests"
+lint-ruff-format = "ruff format --check src tests"
+lint-ty = "ty check src tests"
+lint.sequence = ["lint-ruff", "lint-ruff-format", "lint-ty"]
+lint.ignore_fail = "return_non_zero"
